@@ -5,6 +5,7 @@ import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.rms.RecordStore;
 import javax.microedition.rms.RecordStoreException;
+import java.util.Random;
 
 /**
  * Snake with a title/menu screen, levels, obstacle mazes that get denser
@@ -25,6 +26,7 @@ public class SnakeCanvas extends Canvas implements Runnable, CommandListener {
 
     private final SnakeMIDlet midlet;
     private final SoundManager sound = new SoundManager();
+    private final Random random = new Random();
 
     private int cols, rows;
     private final int topOffset = 20;
@@ -132,10 +134,10 @@ public class SnakeCanvas extends Canvas implements Runnable, CommandListener {
         int attempts = 0;
         while (placed < segments && attempts < segments * 25) {
             attempts++;
-            boolean horizontal = Math.random() < 0.5;
-            int len = 2 + (int) (Math.random() * 3);
-            int x = (int) (Math.random() * cols);
-            int y = (int) (Math.random() * rows);
+            boolean horizontal = random.nextInt(2) == 0;
+            int len = 2 + random.nextInt(3);
+            int x = random.nextInt(cols);
+            int y = random.nextInt(rows);
             boolean ok = true;
             for (int i = 0; i < len && ok; i++) {
                 int cx = horizontal ? x + i : x;
@@ -163,8 +165,8 @@ public class SnakeCanvas extends Canvas implements Runnable, CommandListener {
     private void placeFood() {
         boolean bad;
         do {
-            foodX = (int) (Math.random() * cols);
-            foodY = (int) (Math.random() * rows);
+            foodX = random.nextInt(cols);
+            foodY = random.nextInt(rows);
             bad = isBlocked(foodX, foodY);
             if (!bad) {
                 for (int i = 0; i < length; i++) {
@@ -175,14 +177,14 @@ public class SnakeCanvas extends Canvas implements Runnable, CommandListener {
     }
 
     private void maybeSpawnBonus() {
-        if (bonusActive || Math.random() > 0.3) {
+        if (bonusActive || random.nextInt(100) >= 30) {
             return;
         }
         boolean bad;
         int tries = 0;
         do {
-            bonusX = (int) (Math.random() * cols);
-            bonusY = (int) (Math.random() * rows);
+            bonusX = random.nextInt(cols);
+            bonusY = random.nextInt(rows);
             bad = isBlocked(bonusX, bonusY) || (bonusX == foodX && bonusY == foodY);
             if (!bad) {
                 for (int i = 0; i < length; i++) {
