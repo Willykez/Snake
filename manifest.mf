@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-MIDlet-1: Snake, /icon.png, SnakeMIDlet
-MIDlet-Name: Snake
+MIDlet-1: Village Toolkit, /icon.png, ToolkitMIDlet
+MIDlet-Name: Village Toolkit
 MIDlet-Version: 1.0.0
 MIDlet-Vendor: YourName
 MicroEdition-Profile: MIDP-2.0

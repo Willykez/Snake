@@ -1,37 +1,33 @@
 import javax.microedition.media.Manager;
 
 /**
- * Wraps javax.microedition.media (MMAPI / JSR-135) tone playback.
+ * Wraps javax.microedition.media (MMAPI / JSR-135) tone playback for UI
+ * feedback sounds.
  *
  * Isolated in its own class on purpose: MMAPI is an OPTIONAL package on
- * MIDP phones. Some Java feature phones simply don't ship it. Keeping the
- * import confined here means that if the class is missing at runtime, the
- * failure happens the first time this class is touched — not when
- * SnakeCanvas (or the MIDlet) loads — and the catch(Throwable) below turns
- * that failure into "sound quietly turns itself off" instead of a crash.
+ * MIDP phones and some Java feature phones don't ship it. Keeping the
+ * import confined here means a missing implementation only disables
+ * sound, caught the first time this class is touched, rather than
+ * crashing the app.
  */
 public class SoundManager {
 
     private boolean enabled = true;
 
-    public void playEat() {
-        play(72, 70, 100);        // short high blip
+    public void playNav() {
+        play(64, 30, 60);      // very short, quiet - menu movement
     }
 
-    public void playBonus() {
-        play(84, 90, 100);        // higher, slightly longer - distinct from normal food
+    public void playSelect() {
+        play(72, 60, 90);      // confirm / open a screen
     }
 
-    public void playLevelUp() {
-        play(76, 160, 100);       // a bit longer, mid-high
+    public void playSuccess() {
+        play(80, 100, 100);    // saved / computed successfully
     }
 
-    public void playHit() {
-        play(55, 180, 100);       // low buzz - lost a life but still playing
-    }
-
-    public void playGameOver() {
-        play(40, 400, 100);       // low, longer tone - run has ended
+    public void playError() {
+        play(48, 200, 100);    // invalid input, delete, etc.
     }
 
     private void play(int note, int durationMs, int volume) {
@@ -41,10 +37,8 @@ public class SoundManager {
         try {
             Manager.playTone(note, durationMs, volume);
         } catch (Throwable t) {
-            // Covers both a normal MediaException (tone playback failed)
-            // and NoClassDefFoundError (MMAPI not present on this phone at
-            // all). Either way, stop trying so we don't pay this cost -
-            // and don't risk repeated failures - on every future call.
+            // Covers a normal MediaException as well as NoClassDefFoundError
+            // if MMAPI isn't present at all. Either way, stop trying.
             enabled = false;
         }
     }

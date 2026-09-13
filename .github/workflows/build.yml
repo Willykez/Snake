@@ -22,10 +22,10 @@ jobs:
       - name: Build the MIDlet suite
         run: mvn -B package
 
-      - name: Upload Snake.jar and Snake.jad
+      - name: Upload Toolkit.jar and Toolkit.jad
         uses: actions/upload-artifact@v4
         with:
-          name: snake-j2me-build
+          name: toolkit-j2me-build
           path: |
-            target/j2me/Snake.jar
-            target/j2me/Snake.jad
+            target/j2me/Toolkit.jar
+            target/j2me/Toolkit.jad

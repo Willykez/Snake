@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.example</groupId>
-  <artifactId>snake-j2me</artifactId>
+  <artifactId>village-toolkit</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
 
@@ -16,7 +16,7 @@
          They are compile-time stubs only; nothing from them ships on the
          phone, so this has no bearing on what your actual T528 supports. -->
     <microemu.version>2.0.4</microemu.version>
-    <j2me.finalName>Snake</j2me.finalName>
+    <j2me.finalName>Toolkit</j2me.finalName>
   </properties>
 
   <dependencies>
@@ -37,7 +37,7 @@
          verify - if the build fails specifically on SoundManager.java,
          paste me the error and I'll adjust; the fallback is simply deleting
          SoundManager.java and the two sound-related lines in
-         SnakeCanvas.java, since sound was designed to be fully optional. -->
+         ToolkitCanvas.java, since sound was designed to be fully optional. -->
     <dependency>
       <groupId>org.microemu</groupId>
       <artifactId>microemu-jsr-135</artifactId>
@@ -124,7 +124,7 @@
               this replaces the old standalone `preverify` tool, which has
               no clean way to run in CI. dontoptimize/obfuscate=false keep
               the class names intact, since manifest.mf references
-              "SnakeMIDlet" by its literal name. -->
+              "ToolkitMIDlet" by its literal name. -->
       <plugin>
         <groupId>com.github.wvengen</groupId>
         <artifactId>proguard-maven-plugin</artifactId>
