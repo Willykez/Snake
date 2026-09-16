@@ -26,7 +26,7 @@ wherever the widget type allows it.
   anywhere, so there's no persistent record of any measurement
 - **About** — app info, in the same visual theme as everything else
 
-## What's in here
+## What is in here
 
 ```
 toolkit-j2me/
